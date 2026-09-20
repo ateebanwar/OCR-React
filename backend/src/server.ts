@@ -14,8 +14,9 @@ const logger = createLogger('Server');
 const app = express();
 
 // Security Headers (Section 36)
+const helmetMiddleware = (typeof helmet === 'function' ? helmet : (helmet as any).default) as (options?: any) => any;
 app.use(
-  helmet({
+  helmetMiddleware({
     contentSecurityPolicy: false, // Allow API client usage
     crossOriginResourcePolicy: { policy: 'cross-origin' },
   })
